@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title>W3Schools Home Page</title>
+  <link>https://www.w3schools.com</link>
+  <description>Free web building tutorials</description>
+  <item>
+    <title>RSS Tutorial</title>
+    <link>https://www.w3schools.com/xml/xml_rss.asp</link>
+    <description>New RSS tutorial on W3Schools</description>
+  </item>
+
+  <% rssItems.forEach(function(rssItem) { %>
+   <item>
+    <title><%= rssItem.title %></title>
+    <link><%= rssItem.link %></link>
+    <description><%= rssItem.description %></description>
+    <pubDate><%= rssItem.pubDate %></pubDate>
+    <media:thumbnail url="<%= rssItem.mediaThumbnail %>"/>
+   </item>
+  <% }); %>
+</channel>
+
+</rss>
+  
