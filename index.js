@@ -2,6 +2,16 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var cloudLink = "https://deliver.kenticocloud.com";  
+var type_prefix = "items?system.type=";
+
+var jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+const { window } = new JSDOM();
+const { document } = (new JSDOM('')).window;
+global.document = document;
+
+var $ = jQuery = require('jquery')(window);
 
 
 var jwt = require('jwt-simple');
@@ -37,19 +47,44 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   
+  var projectId = GetQueryString(request,"projectid");
+  var itemSystemType = GetQueryString(request,"itemsystemtype");
+  var titleField = GetQueryString(request,"title");
+  var linkField = GetQueryString(request,"link");
+  var linkFormatField = GetQueryString(request,"linkformat");
+  var descriptionField = GetQueryString(request,"description");
+  var pubDateField = GetQueryString(request,"pubdate");
+  var mediaThumbnailField = GetQueryString(request,"mediathumbnail");
+  var topN = GetQueryString(request,"topn");
   
-  console.log('query string:' + GetParameterByName(request,"system.type")); 
-  console.log('test ghhhhheeeererree' ); 
+  /*
+  https://json-to-rss.herokuapp.com/?projectid=7564058a-b788-4b71-ac2a-070e19b02042&itemsystemtype=project&topn=20&title=metadata__title&link=codename&linkformat=index.html?id=*&layout=gallery&mediathumbnail=metadata__hero_image&pubdate=last_modified&description=metadata__description
+  */
   
-    var rssItems = [
-        { title: 'Bloody Mary', link: "http://seethestreet.com", description: "", pubDate: "", mediaThumbnail: "" },
-        { title: 'Bloody Mary2', link: "http://seethestreet.com", description: "", pubDate: "", mediaThumbnail: "" },
-        { title: 'Bloody Mary3', link: "http://seethestreet.com", description: "", pubDate: "", mediaThumbnail: "" }
-    ];
+  //console.log('query string:' + GetQueryString(request,"system.type")); 
+ 
+  
+  $.getJSON( cloudLink + "/" + projectId + "/" + type_prefix + itemSystemType).done(function( data ) {
+      
+      
+           var rssItems = [];
+      
+      
+          $.each( data.items, function( i, item ) {
+        
+           rssItems.push({ title: item.elements[titleField].value, link: "http://seethestreet.com", description: item.elements[descriptionField].value, pubDate: "", mediaThumbnail: item.elements[mediaThumbnailField].value["0"].url });   
+            
+                      
+          });
+          
+          response.render('pages/index', {
+                rssItems: rssItems
+            });
+          
+        });
+  
+  
    
-    response.render('pages/index', {
-        rssItems: rssItems
-    });
 });
 
 
@@ -62,10 +97,7 @@ app.listen(app.get('port'), function() {
 
 
 // get query string
-function GetParameterByName(request, name) {
-    var url = require('url');
-    var url_parts = url.parse(request.url, true);
-    var query = url_parts.query;
+function GetQueryString(request, name) {
     
     return request.query[name];
 }
