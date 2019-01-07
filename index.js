@@ -36,6 +36,11 @@ app.set('port', process.env.PORT || 5000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
+  
+  
+  console.log('query string:', GetParameterByName("system.type")); 
+  
+  
     var rssItems = [
         { title: 'Bloody Mary', link: "http://seethestreet.com", description: "", pubDate: "", mediaThumbnail: "" },
         { title: 'Bloody Mary2', link: "http://seethestreet.com", description: "", pubDate: "", mediaThumbnail: "" },
@@ -55,6 +60,17 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
+
+// get quesry string
+function GetParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
 
 
