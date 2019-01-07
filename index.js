@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var routes = require('./routes/accountRoutes');
+
 
 var jwt = require('jwt-simple');
 var allowCrossDomain = function(req, res, next) {
