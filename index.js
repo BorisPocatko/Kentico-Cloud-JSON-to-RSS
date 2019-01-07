@@ -38,7 +38,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   
   
-  console.log('query string:' + GetParameterByName("system.type")); 
+  console.log('query string:' + GetParameterByName(request,"system.type")); 
   console.log('test ghhhhheeeererree' ); 
   
     var rssItems = [
@@ -62,7 +62,7 @@ app.listen(app.get('port'), function() {
 
 
 // get query string
-function GetParameterByName(name, url) {
+function GetParameterByName(request, name) {
     var url = require('url');
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
