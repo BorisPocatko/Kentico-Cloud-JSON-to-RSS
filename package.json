@@ -14,6 +14,7 @@
     "express": "4.15.2",
 	"body-parser": "*",
   "jsdom":"*",
+  "jquery":"*",
 	"bcrypt": "^0.8.5",
 	"passport-jwt": "^1.2.1",
 	"jwt-simple": "^0.3.1"
