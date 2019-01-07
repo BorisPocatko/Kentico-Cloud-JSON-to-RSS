@@ -1,3 +1,4 @@
+<?xml version="1.0" xmlns:atom="http://www.w3.org/2005/Atom" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
   <title>W3Schools Home Page</title>
@@ -9,7 +10,7 @@
     <link><%= rssItem.link %></link>
     <description><%= rssItem.description %></description>
     <pubDate><%= rssItem.pubDate %></pubDate>
-    <media:thumbnail url="<%= rssItem.mediaThumbnail %>"/>
+    <media:content url="<%= rssItem.mediaContent %>"/>
    </item>
   <% }); %>
 </channel>

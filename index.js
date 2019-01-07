@@ -55,7 +55,7 @@ app.get('/', function(request, response) {
   var linkFormatField = GetQueryString(request,"linkformat");
   var descriptionField = GetQueryString(request,"description");
   var pubDateField = GetQueryString(request,"pubdate");
-  var mediaThumbnailField = GetQueryString(request,"mediathumbnail");
+  var mediaContentField = GetQueryString(request,"mediathumbnail");
   var topN = GetQueryString(request,"topn");
   
   /*
@@ -73,7 +73,7 @@ app.get('/', function(request, response) {
       
           $.each( data.items, function( i, item ) {
         
-           rssItems.push({ title: item.elements[titleField].value, link: "http://seethestreet.com", description: item.elements[descriptionField].value, pubDate: "", mediaThumbnail: item.elements[mediaThumbnailField].value["0"].url });   
+           rssItems.push({ title: item.elements[titleField].value, link: "http://seethestreet.com", description: item.elements[descriptionField].value, pubDate: "", mediaContent: item.elements[mediaContentField].value["0"].url });   
             
                       
           });
