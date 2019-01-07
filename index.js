@@ -67,7 +67,7 @@ function GetParameterByName(request, name) {
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
     
-    return query;
+    return request.query[name];
 }
 
 
