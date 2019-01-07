@@ -61,15 +61,13 @@ app.listen(app.get('port'), function() {
 });
 
 
-// get quesry string
+// get query string
 function GetParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    var url = require('url');
+    var url_parts = url.parse(request.url, true);
+    var query = url_parts.query;
+    
+    return query;
 }
 
 
