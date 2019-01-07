@@ -1,6 +1,7 @@
 // START - Require section 
 var express = require('express');
 var app = express();
+var xml = require('xml');
 var bodyParser = require('body-parser');
 var cloudLink = "https://deliver.kenticocloud.com";  
 var type_prefix = "items?system.type=";
@@ -77,6 +78,7 @@ app.get('/', function(request, response) {
                       
           });
           
+          response.set('Content-Type', 'text/xml');
           response.render('pages/index', {
                 rssItems: rssItems
             });

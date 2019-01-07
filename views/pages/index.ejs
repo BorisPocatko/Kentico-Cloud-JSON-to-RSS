@@ -1,11 +1,8 @@
 <rss version="2.0">
-
 <channel>
   <title>W3Schools Home Page</title>
   <link>https://www.w3schools.com</link>
   <description>Free web building tutorials</description>
-
-
   <% rssItems.forEach(function(rssItem) { %>
    <item>
     <title><%= rssItem.title %></title>
@@ -16,6 +13,5 @@
    </item>
   <% }); %>
 </channel>
-
 </rss>
   
