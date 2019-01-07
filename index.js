@@ -38,8 +38,8 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   
   
-  console.log('query string:', GetParameterByName("system.type")); 
-  
+  console.log('query string:' + GetParameterByName("system.type")); 
+  console.log('test ghhhhheeeererree' ); 
   
     var rssItems = [
         { title: 'Bloody Mary', link: "http://seethestreet.com", description: "", pubDate: "", mediaThumbnail: "" },
