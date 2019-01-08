@@ -46,55 +46,53 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   
-  var projectId = GetQueryString(request,"projectid");
-  var itemSystemType = GetQueryString(request,"itemsystemtype");
-  var titleField = GetQueryString(request,"title");
-  var linkField = GetQueryString(request,"link");
-  var linkFormat = Base64.decode(GetQueryString(request,"linkformat"));
-  var descriptionField = GetQueryString(request,"description");
-  var pubDateField = GetQueryString(request,"pubdate");
-  var mediaContentField = GetQueryString(request,"mediathumbnail");
-  var topN = GetQueryString(request,"topn");
-  
-  
-  /*
-  https://json-to-rss.herokuapp.com/?projectid=7564058a-b788-4b71-ac2a-070e19b02042&itemsystemtype=project&topn=20&title=metadata__title&link=codename&linkformat=http://seethestreet.com/index.html?id=*&layout=gallery&mediathumbnail=metadata__hero_image&pubdate=last_modified&description=metadata__description
-  */
- 
+  var projectId = GetQueryString(request,"projectid");  
   
   if(projectId == null || projectId == 'undefined' || projectId =="")
   {
     response.render('pages/help');
-  }
+  }else
+  {
+    var itemSystemType = GetQueryString(request,"itemsystemtype");
+    var titleField = GetQueryString(request,"title");
+    var linkField = GetQueryString(request,"link");
+    var linkFormat = Base64.decode(GetQueryString(request,"linkformat"));
+    var descriptionField = GetQueryString(request,"description");
+    var pubDateField = GetQueryString(request,"pubdate");
+    var mediaContentField = GetQueryString(request,"mediathumbnail");
+    var topN = GetQueryString(request,"topn");
+    
   
-  $.getJSON( cloudLink + "/" + projectId + "/" + type_prefix + itemSystemType).done(function( data ) {
-            
-          var rssItems = [];      
-      
-          $.each( data.items, function( i, item ) {
-            
-            var titleValue = item.elements[titleField].value;
-            var linkValue = linkFormat.replace('*', item.system["codename"]);
-            var descriptionValue = item.elements[descriptionField].value;
-            var pubDateValue = item.system.last_modified;
-            var mediaContentValue = item.elements[mediaContentField].value["0"].url;
+    $.getJSON( cloudLink + "/" + projectId + "/" + type_prefix + itemSystemType).done(function( data ) {
+              
+            var rssItems = [];      
         
-           rssItems.push({ 
-              title: titleValue, 
-              link: linkValue, 
-              description: descriptionValue, 
-              pubDate: pubDateValue, 
-              mediaContent: mediaContentValue 
-              });   
-                    
-          });
+            $.each( data.items, function( i, item ) {
+              
+              var titleValue = item.elements[titleField].value;
+              var linkValue = linkFormat.replace('*', item.system["codename"]);
+              var descriptionValue = item.elements[descriptionField].value;
+              var pubDateValue = item.system.last_modified;
+              var mediaContentValue = item.elements[mediaContentField].value["0"].url;
           
-          response.set('Content-Type', 'text/xml');
-          response.render('pages/index', {
-                rssItems: rssItems
+             rssItems.push({ 
+                title: titleValue, 
+                link: linkValue, 
+                description: descriptionValue, 
+                pubDate: pubDateValue, 
+                mediaContent: mediaContentValue 
+                });   
+                      
             });
-          
-        });
+            
+            response.set('Content-Type', 'text/xml');
+            response.render('pages/index', {
+                  rssItems: rssItems
+              });
+            
+          });
+        
+  }
   
   
    
