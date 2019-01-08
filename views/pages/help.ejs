@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kentico Cloud JSON to RSS</title>
+</head>
+
+<body>
+
+	<title>Kentico Cloud JSON to RSS</title>
+  <link>https://json-to-rss.herokuapp.com</link>
+  <p><a href="https://github.com/BorisPocatko/Kentico-Cloud-JSON-to-RSS">GitHub repo</a></p>
+  <h2>A barebones Kentico Cloud JSON to RSS app</h2>
+  
+  
+  <h3>Supported query string parameters:</h3><br/><br/>
+  <div>
+    <u>projectid</u> - Kentico Cloud project ID <br/>
+    <u>itemsystemtype</u> - Kentico Cloud content type code name <br/>
+    <u>title</u> - Kentico Cloud content type field code name containing the title for the RSS item (has to be under the <b>elements</b> node within the JSON definition)<br/>
+    <u>link</u> - Kentico Cloud content type field code name used for generating the link (see below) for the RSS item (has to be under the <b>system</b> node within the JSON definition)<br/>
+    <u>linkformat</u> - <b>Base64 encoded</b> full link format with * determining where the 'link' field content is replaced<br/>
+    <u>description</u> - Kentico Cloud content type field code name containing the description for the RSS item (has to be under the <b>elements</b> node within the JSON definition)<br/>
+    <u>pubdate</u> - Kentico Cloud content type field code name containing the publication date for the RSS item (has to be under the <b>system</b> node within the JSON definition)<br/>
+    <u>mediathumbnail</u> - Kentico Cloud content type field code name containing the image link for the RSS item (has to be under the <b>elements</b> node within the JSON definition)<br/>
+  </div>
+  
+  
+  
+  <h2>Example URL:</h2>
+  <p>
+  https://json-to-rss.herokuapp.com/?projectid=7564058a-b788-4b71-ac2a-070e19b02042&itemsystemtype=project&topn=20&title=metadata__title&link=codename&linkformat=aHR0cDovL3NlZXRoZXN0cmVldC5jb20vaW5kZXguaHRtbD9pZD0qJmxheW91dD1nYWxsZXJ5&mediathumbnail=metadata__hero_image&pubdate=last_modified&description=metadata__description
+ </p>
+	
+
+</body>
+</html>
