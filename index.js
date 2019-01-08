@@ -88,7 +88,7 @@ app.get('/', function(request, response) {
             response.set('Content-Type', 'text/xml');
             response.render('pages/index', {
                   rssItems: rssItems,
-                  rssLink: request.protocol + '://' + request.get('host') + request.originalUrl; ,
+                  rssLink: request.protocol + '://' + request.get('host') + request.originalUrl
               });
             
           });
