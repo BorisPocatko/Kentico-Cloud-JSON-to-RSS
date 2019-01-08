@@ -52,14 +52,15 @@ app.get('/', function(request, response) {
   var itemSystemType = GetQueryString(request,"itemsystemtype");
   var titleField = GetQueryString(request,"title");
   var linkField = GetQueryString(request,"link");
-  var linkFormatField = GetQueryString(request,"linkformat");
+  var linkFormat = GetQueryString(request,"linkformat");
   var descriptionField = GetQueryString(request,"description");
   var pubDateField = GetQueryString(request,"pubdate");
   var mediaContentField = GetQueryString(request,"mediathumbnail");
   var topN = GetQueryString(request,"topn");
   
+  
   /*
-  https://json-to-rss.herokuapp.com/?projectid=7564058a-b788-4b71-ac2a-070e19b02042&itemsystemtype=project&topn=20&title=metadata__title&link=codename&linkformat=index.html?id=*&layout=gallery&mediathumbnail=metadata__hero_image&pubdate=last_modified&description=metadata__description
+  https://json-to-rss.herokuapp.com/?projectid=7564058a-b788-4b71-ac2a-070e19b02042&itemsystemtype=project&topn=20&title=metadata__title&link=codename&linkformat=http://seethestreet.com/index.html?id=*&layout=gallery&mediathumbnail=metadata__hero_image&pubdate=last_modified&description=metadata__description
   */
   
   //console.log('query string:' + GetQueryString(request,"system.type")); 
@@ -73,7 +74,7 @@ app.get('/', function(request, response) {
       
           $.each( data.items, function( i, item ) {
         
-           rssItems.push({ title: item.elements[titleField].value, link: "http://seethestreet.com", description: item.elements[descriptionField].value, pubDate: "", mediaContent: item.elements[mediaContentField].value["0"].url });   
+           rssItems.push({ title: item.elements[titleField].value, link: linkFormat.replace('*', item.system["codename"]), description: item.elements[descriptionField].value, pubDate: item.system.last_modified, mediaContent: item.elements[mediaContentField].value["0"].url });   
             
                       
           });
