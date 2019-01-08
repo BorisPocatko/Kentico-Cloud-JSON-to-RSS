@@ -60,21 +60,33 @@ app.get('/', function(request, response) {
   /*
   https://json-to-rss.herokuapp.com/?projectid=7564058a-b788-4b71-ac2a-070e19b02042&itemsystemtype=project&topn=20&title=metadata__title&link=codename&linkformat=http://seethestreet.com/index.html?id=*&layout=gallery&mediathumbnail=metadata__hero_image&pubdate=last_modified&description=metadata__description
   */
-  
-  //console.log('query string:' + GetQueryString(request,"system.type")); 
  
   
+  if(projectId == null || projectId == 'undefined' || projectId =="")
+  {
+    response.render('pages/help');
+  }
+  
   $.getJSON( cloudLink + "/" + projectId + "/" + type_prefix + itemSystemType).done(function( data ) {
-      
-      
-           var rssItems = [];
-      
+            
+          var rssItems = [];      
       
           $.each( data.items, function( i, item ) {
-        
-           rssItems.push({ title: item.elements[titleField].value, link: linkFormat.replace('*', item.system["codename"]), description: item.elements[descriptionField].value, pubDate: item.system.last_modified, mediaContent: item.elements[mediaContentField].value["0"].url });   
             
-                      
+            var titleValue = item.elements[titleField].value;
+            var linkValue = linkFormat.replace('*', item.system["codename"]);
+            var descriptionValue = item.elements[descriptionField].value;
+            var pubDateValue = item.system.last_modified;
+            var mediaContentValue = item.elements[mediaContentField].value["0"].url;
+        
+           rssItems.push({ 
+              title: titleValue, 
+              link: linkValue, 
+              description: descriptionValue, 
+              pubDate: pubDateValue, 
+              mediaContent: mediaContentValue 
+              });   
+                    
           });
           
           response.set('Content-Type', 'text/xml');
