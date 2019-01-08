@@ -14,8 +14,6 @@ global.document = document;
 
 var $ = jQuery = require('jquery')(window);
 
-
-var jwt = require('jwt-simple');
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
