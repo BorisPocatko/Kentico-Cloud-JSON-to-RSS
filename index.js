@@ -60,6 +60,8 @@ app.get('/', function(request, response) {
     var descriptionField = GetQueryString(request,"description");
     var pubDateField = GetQueryString(request,"pubdate");
     var mediaContentField = GetQueryString(request,"mediathumbnail");
+    var mediaWidth = GetQueryString(request,"width");
+    var mediaHeight = GetQueryString(request,"height");
     var topN = GetQueryString(request,"topn");
     
   
@@ -67,13 +69,28 @@ app.get('/', function(request, response) {
               
             var rssItems = [];      
         
+            var imageQueryString = "";
+            var param = "?";
+        
+            if(!!mediaWidth)
+            {
+              imageQueryString += ("?width=" + mediaWidth);
+              param = "&";
+            }
+            
+            if(!!mediaHeight)
+            {
+              imageQueryString += (param + "width=" + mediaHeight);
+            }
+            
+        
             $.each( data.items, function( i, item ) {
               
               var titleValue = item.elements[titleField].value;
               var linkValue = linkFormat.replace('*', item.system["codename"]);
               var descriptionValue = item.elements[descriptionField].value;
               var pubDateValue = item.system.last_modified;
-              var mediaContentValue = item.elements[mediaContentField].value["0"].url;
+              var mediaContentValue = item.elements[mediaContentField].value["0"].url + imageQueryString;
           
              rssItems.push({ 
                 title: titleValue, 
