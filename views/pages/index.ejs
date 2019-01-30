@@ -12,8 +12,8 @@
     <guid><%= rssItem.link %></guid>
     <description><%= rssItem.description %></description>
     <pubDate><%= rssItem.pubDate %></pubDate>
-    <media:content url="<%= rssItem.mediaContent %>"/>
-    <media:thumbnail url="<%= rssItem.mediaContent %>"/>
+    <media:content url="<%= rssItem.mediaContent %>" medium="image" type="image/jpg"/>
+    <media:thumbnail url="<%= rssItem.mediaContent %>" medium="image" type="image/jpg"/>
    </item>
   <% }); %>
 </channel>
